@@ -37,7 +37,9 @@ if [ -n "${OWNER_PASSWORD_FILE:-}" ]; then
   JAR="$TEST_TMP/jar"
   login "${OWNER_USERNAME:-owner}" "$OWNER_PASSWORD_FILE" "$JAR" && pass "sign in with the generated password" || die "login failed"
   assert_eq "vehicle list visible" "200" "$(auth_code "$JAR" "$BASE_URL/api/vehicles")"
-  assert_contains "session cookie is marked secure" "Secure" "$(grep -i session "$JAR" || echo "")"
+  flags=$(login_cookie_flags "${OWNER_USERNAME:-owner}" "$OWNER_PASSWORD_FILE")
+  assert_contains "session cookie is marked Secure" "Secure" "$flags"
+  assert_contains "session cookie is HttpOnly" "HttpOnly" "$flags"
 
   if [ -n "${STATE_OUT:-}" ]; then
     section "create a vehicle"

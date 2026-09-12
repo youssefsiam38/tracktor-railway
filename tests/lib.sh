@@ -66,6 +66,13 @@ login_code() {
   http_code -X POST "$BASE_URL/api/auth" -H 'Content-Type: application/json' \
     --data "$(jq -nc --arg u "$1" --arg p "$2" '{username:$u, password:$p}')"
 }
+# login_cookie_flags USERNAME PASSWORD_FILE -> the Set-Cookie attributes only, never the value
+login_cookie_flags() {
+  curl -s -D - -o /dev/null --max-time 30 -X POST "$BASE_URL/api/auth" \
+    -H 'Content-Type: application/json' \
+    --data "$(jq -nc --arg u "$1" --rawfile p "$2" '{username:$u, password:($p|rtrimstr("\n"))}')" \
+    | grep -i '^set-cookie:' | sed 's/session=[^;]*/session=<redacted>/i' || true
+}
 register_code() {
   http_code -X POST "$BASE_URL/api/auth/register" -H 'Content-Type: application/json' \
     --data "$(jq -nc --arg u "$1" --arg p "$2" '{username:$u, password:$p}')"
