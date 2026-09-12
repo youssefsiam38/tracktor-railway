@@ -6,6 +6,8 @@ The published template. Reproduce it from this file if it ever has to be rebuilt
 |---|---|
 | Name | Tracktor |
 | Code | `tracktor` |
+| Template id | `0dbc0c71-0300-4235-8e95-1d511e6e3b0c` |
+| Deploy URL | https://railway.com/deploy/tracktor |
 | Category | Other |
 | Image | `ghcr.io/youssefsiam38/tracktor-railway:<version>` |
 | Icon | `assets/icon.png` |

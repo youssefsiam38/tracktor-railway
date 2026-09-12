@@ -7,7 +7,9 @@ This repository is a **community-maintained Railway template** for
 project**.
 
 <!-- DEPLOY_BUTTON_START -->
-Deploy button is added once the template is published.
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/tracktor)
+
+Template page: https://railway.com/deploy/tracktor
 <!-- DEPLOY_BUTTON_END -->
 
 > **Read this before deploying.** Tracktor has a real login, but its registration page never closes:
@@ -30,7 +32,7 @@ Deploy button is added once the template is published.
 |---|---|
 | Tracktor | 2.1.0 |
 | Caddy (the proxy that closes registration) | 2.10.2 |
-| Wrapper | see [releases](https://github.com/youssefsiam38/tracktor-railway/releases) |
+| Wrapper | v1.0.0 — `ghcr.io/youssefsiam38/tracktor-railway:1.0.0` ([releases](https://github.com/youssefsiam38/tracktor-railway/releases)) |
 
 One service, one volume, no external database. Why a wrapper:
 [ARCHITECTURE.md](ARCHITECTURE.md).
