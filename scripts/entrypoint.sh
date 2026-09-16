@@ -7,8 +7,10 @@
 #   4. supervise both; if either exits, the container exits
 set -u
 
-log()  { printf '[tracktor-railway] %s\n' "$*" >&2; }
-fail() { log "FATAL: $*"; exit 1; }
+# Railway colours a log line by the stream it arrived on, so routine start-up messages go to stdout
+# and only failures go to stderr; otherwise the whole first boot is shown to the deployer in red.
+log()  { printf '[tracktor-railway] %s\n' "$*"; }
+fail() { printf '[tracktor-railway] FATAL: %s\n' "$*" >&2; exit 1; }
 
 : "${HOST:=127.0.0.1}"
 : "${TRACKTOR_INTERNAL_PORT:=3000}"

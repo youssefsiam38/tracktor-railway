@@ -74,6 +74,15 @@ for wf in .github/workflows/*.yml; do
   fi
 done
 
+section "log streams"
+# Railway colours a log line by the stream it arrived on: routine lines on stderr show as errors.
+if grep -q '^log()' scripts/entrypoint.sh && ! grep '^log()' scripts/entrypoint.sh | grep -q '>&2'; then
+  pass "routine logs go to stdout"
+else
+  fail "log() writes to stderr; Railway would show every start-up line as an error"
+fi
+if grep '^fail()' scripts/entrypoint.sh | grep -q '>&2'; then pass "failures go to stderr"; else fail "fail() does not write to stderr"; fi
+
 section "no tracked secrets"
 if git rev-parse --git-dir >/dev/null 2>&1; then
   if git grep -nIE '(BEGIN [A-Z ]*PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|xox[baprs]-)' -- . >/dev/null 2>&1; then

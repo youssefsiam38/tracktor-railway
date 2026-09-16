@@ -10,9 +10,10 @@ const base = process.env.TRACKTOR_INTERNAL_URL;
 const username = process.env.TRACKTOR_OWNER_USERNAME ?? '';
 const password = process.env.TRACKTOR_OWNER_PASSWORD ?? '';
 
-const log = (msg) => console.error(`[tracktor-railway] ${msg}`);
+// stdout, not stderr: Railway shows anything on stderr as an error, and these are routine.
+const log = (msg) => console.log(`[tracktor-railway] ${msg}`);
 const fail = (msg) => {
-  log(`FATAL: ${msg}`);
+  console.error(`[tracktor-railway] FATAL: ${msg}`);
   process.exit(1);
 };
 
